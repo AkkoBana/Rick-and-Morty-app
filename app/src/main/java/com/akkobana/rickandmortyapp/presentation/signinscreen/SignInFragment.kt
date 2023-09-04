@@ -12,7 +12,9 @@ import com.akkobana.rickandmortyapp.databinding.FragmentSignInBinding
 import com.akkobana.rickandmortyapp.databinding.FragmentSignUpBinding
 import com.akkobana.rickandmortyapp.presentation.MainActivity
 import com.akkobana.rickandmortyapp.presentation.MainApplication
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignInFragment : Fragment() {
 
     private lateinit var binding: FragmentSignInBinding

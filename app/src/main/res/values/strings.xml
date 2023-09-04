@@ -8,4 +8,11 @@
     <string name="enter_login_hint">Enter login</string>
     <string name="exit">Exit</string>
     <string name="search">Search</string>
+    <string name="character_name_example">Rick</string>
+    <string name="status">Status:</string>
+    <string name="name">name</string>
+    <string name="species">Species:</string>
+    <string name="gender">Gender:</string>
+    <string name="created">Created:</string>
+    <string name="back">Back to character list</string>
 </resources>

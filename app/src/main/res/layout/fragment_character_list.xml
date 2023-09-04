@@ -4,15 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".presentation.charactersscreen.CharactersListFragment">
 
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/appCompatEditText"
+        android:id="@+id/etSearchCharacters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
+        android:background="@drawable/rounded_edit_text"
         android:hint="@string/search"
         android:padding="12dp"
         android:textSize="16sp"
@@ -21,15 +24,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/ibSearchCharacters"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/appCompatEditText"
+        android:background="@color/white"
+        android:src="@drawable/ic_search"
+        app:layout_constraintBottom_toBottomOf="@+id/etSearchCharacters"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/appCompatEditText"
-        app:layout_constraintTop_toTopOf="@+id/appCompatEditText" />
+        app:layout_constraintStart_toEndOf="@+id/etSearchCharacters"
+        app:layout_constraintTop_toTopOf="@+id/etSearchCharacters" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/rvCharacterList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
@@ -39,16 +45,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatEditText"
-        app:spanCount="4"
+        app:layout_constraintTop_toBottomOf="@+id/etSearchCharacters"
+        app:spanCount="3"
         tools:itemCount="5" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/bToProfileFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/white"
+        android:src="@drawable/ic_profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

@@ -9,13 +9,16 @@
         android:id="@+id/charactersListFragment"
         android:name="com.akkobana.rickandmortyapp.presentation.charactersscreen.CharactersListFragment"
         android:label="fragment_characters_list"
-        tools:layout="@layout/fragment_characters_list" >
+        tools:layout="@layout/fragment_character_list" >
         <action
             android:id="@+id/action_charactersListFragment_to_auth_nav_graph"
             app:destination="@id/auth_nav_graph" />
         <action
             android:id="@+id/action_charactersListFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_charactersListFragment_to_characterInfoFragment"
+            app:destination="@id/characterInfoFragment" />
     </fragment>
     <include app:graph="@navigation/auth_nav_graph" />
     <fragment
@@ -23,4 +26,13 @@
         android:name="com.akkobana.rickandmortyapp.presentation.profilescreen.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/characterInfoFragment"
+        android:name="com.akkobana.rickandmortyapp.presentation.characterinfoscreen.CharacterDetailsFragment"
+        android:label="fragment_character_info"
+        tools:layout="@layout/fragment_character_details" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 </navigation>
