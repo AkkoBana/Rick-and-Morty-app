@@ -18,30 +18,26 @@ class CharactersListViewModel @Inject constructor(
 
     val authStateLive = MutableLiveData<Boolean>()
     val characterListLive = MutableLiveData<MutableList<CharacterCard>>()
+    val isLoading = MutableLiveData<Boolean>()
+    private var nameCharacter: String = ""
 
-    fun fetchNameAndImage() {
-        getApiResponseUseCase.getCharacterNameAndImage()
+    fun fetchNameAndImage(name: String = nameCharacter) {
+        nameCharacter = name
+        isLoading.value = true
+        getApiResponseUseCase.getCharacterNameAndImage(name)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnSuccess {isLoading.value = false  }
             .subscribe({
                 characterListLive.value = it.results
             }, {
 
             }).isDisposed
+
     }
+
 
     fun checkAuthState() {
         authStateLive.value = getAuthStateUseCase.getAuthState()
-    }
-
-    fun fetchFilteredNameAndImage(charName: String) {
-        getApiResponseUseCase.getFilteretCharacterList(charName)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                characterListLive.value = it.results
-            }, {
-
-            }).isDisposed
     }
 }

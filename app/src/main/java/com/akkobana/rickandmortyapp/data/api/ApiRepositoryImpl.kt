@@ -7,14 +7,12 @@ import javax.inject.Inject
 
 class ApiRepositoryImpl @Inject constructor(
     private val rickAndMortyApi: RickAndMortyApi
-): ApiRepository {
+) : ApiRepository {
     override fun getCharacterInfo(id: String): Single<CharacterResults> =
         rickAndMortyApi.getCharacterInfo(id)
 
-    override fun getCharacterNameAndImage(): Single<CharacterNameImage> {
-        return rickAndMortyApi.getCharacterNameAndImage()}
-
-    override fun getFilteretCharacterList(name: String): Single<CharacterNameImage> {
-        return rickAndMortyApi.getFilteredCharacterList(name)
+    override fun getCharacterNameAndImage(name: String): Single<CharacterNameImage> {
+        return rickAndMortyApi.getCharacterNameAndImage(name)
     }
+
 }

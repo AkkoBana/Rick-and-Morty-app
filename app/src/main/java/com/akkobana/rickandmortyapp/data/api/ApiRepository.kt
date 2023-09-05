@@ -9,7 +9,6 @@ import retrofit2.http.Query
 
 interface ApiRepository {
     fun getCharacterInfo(id: String): Single<CharacterResults>
-    fun getCharacterNameAndImage(): Single<CharacterNameImage>
+    fun getCharacterNameAndImage(name: String): Single<CharacterNameImage>
 
-    fun getFilteretCharacterList(name: String): Single<CharacterNameImage>
 }

@@ -1,4 +1,4 @@
-package com.akkobana.rickandmortyapp.presentation.characterinfoscreen
+package com.akkobana.rickandmortyapp.presentation.characterdetailsscreen
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,11 +16,14 @@ internal class CharacterDetailsViewModel @Inject constructor(
 
     val characterDetailsLive = MutableLiveData<CharacterResults>()
     val navigateBackLive = MutableLiveData<Boolean>()
+    val isLoading = MutableLiveData<Boolean>()
 
     fun fetchCharacterData(id: Int) {
+        isLoading.value = true
         getApiResponseUseCase.getCharacterInfo(id.toString())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnSuccess {isLoading.value = false  }
             .subscribe({
                 characterDetailsLive.value = it
             }, {

@@ -13,10 +13,7 @@ class GetApiResponseUseCaseImpl @Inject constructor(
         apiRepository.getCharacterInfo(id)
 
 
-    override fun getCharacterNameAndImage(): Single<CharacterNameImage> =
-        apiRepository.getCharacterNameAndImage()
+    override fun getCharacterNameAndImage(name: String): Single<CharacterNameImage> =
+        apiRepository.getCharacterNameAndImage(name)
 
-    override fun getFilteretCharacterList(name: String): Single<CharacterNameImage> {
-        return apiRepository.getFilteretCharacterList(name)
-    }
 }

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark"
-    tools:context=".presentation.characterinfoscreen.CharacterDetailsFragment">
+    tools:context=".presentation.characterdetailsscreen.CharacterDetailsFragment">
 
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -23,7 +23,7 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivCharacterAvatar"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="250dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tbProfile" />
@@ -41,6 +41,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivCharacterAvatar" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/dark"
+        android:elevation="20dp"
+        android:indeterminateTint="@color/pink"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvStatus"

@@ -16,12 +16,10 @@ interface RickAndMortyApi {
     ): Single<CharacterResults>
 
     @GET("character")
-    fun getCharacterNameAndImage(): Single<CharacterNameImage>
-
-    @GET("character")
-    fun getFilteredCharacterList(
+    fun getCharacterNameAndImage(
         @Query("name")
         name: String
     ): Single<CharacterNameImage>
+
 
 }

@@ -28,7 +28,7 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/characterInfoFragment"
-        android:name="com.akkobana.rickandmortyapp.presentation.characterinfoscreen.CharacterDetailsFragment"
+        android:name="com.akkobana.rickandmortyapp.presentation.characterdetailsscreen.CharacterDetailsFragment"
         android:label="fragment_character_info"
         tools:layout="@layout/fragment_character_details" >
         <argument

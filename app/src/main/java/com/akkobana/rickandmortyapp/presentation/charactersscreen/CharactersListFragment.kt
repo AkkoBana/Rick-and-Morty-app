@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.akkobana.rickandmortyapp.databinding.FragmentCharacterListBinding
@@ -23,7 +24,6 @@ class CharactersListFragment : androidx.fragment.app.Fragment() {
         super.onCreate(savedInstanceState)
         initAdapter()
         getResponseList()
-        Log.d("MyLog", "1234")
     }
 
     private fun getResponseList() {
@@ -57,7 +57,7 @@ class CharactersListFragment : androidx.fragment.app.Fragment() {
 
     private fun setupListener() = with(binding) {
         ibCloseSearchCharacters.setOnClickListener {
-            vm.fetchNameAndImage()
+            vm.fetchNameAndImage("")
         }
         bToProfileFragment.setOnClickListener {
             findNavController()
@@ -68,10 +68,15 @@ class CharactersListFragment : androidx.fragment.app.Fragment() {
         }
         etSearchCharacters.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                vm.fetchFilteredNameAndImage(etSearchCharacters.text.toString().lowercase())
+                vm.fetchNameAndImage(etSearchCharacters.text.toString().lowercase())
             }
             true
         }
+        swipeRefresh.setOnRefreshListener {
+            progressBar.isVisible = true
+            vm.fetchNameAndImage()
+        }
+
     }
 
     private fun observeLiveValue() {
@@ -84,6 +89,12 @@ class CharactersListFragment : androidx.fragment.app.Fragment() {
                     CharactersListFragmentDirections
                         .actionCharactersListFragmentToAuthNavGraph()
                 )
+            }
+        }
+        vm.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            with(binding) {
+                swipeRefresh.isRefreshing = isLoading
+                progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
             }
         }
     }

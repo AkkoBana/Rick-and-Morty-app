@@ -1,4 +1,4 @@
-package com.akkobana.rickandmortyapp.presentation.characterinfoscreen
+package com.akkobana.rickandmortyapp.presentation.characterdetailsscreen
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -59,6 +59,11 @@ class CharacterDetailsFragment : Fragment() {
         }
         vm.navigateBackLive.observe(viewLifecycleOwner) {
             findNavController().navigateUp()
+        }
+        vm.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            with(binding) {
+                progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            }
         }
     }
 
