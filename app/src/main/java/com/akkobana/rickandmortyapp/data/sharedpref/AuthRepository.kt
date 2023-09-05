@@ -1,4 +1,4 @@
-package com.akkobana.rickandmortyapp.data
+package com.akkobana.rickandmortyapp.data.sharedpref
 
 interface AuthRepository {
     fun savePassword(password: String)

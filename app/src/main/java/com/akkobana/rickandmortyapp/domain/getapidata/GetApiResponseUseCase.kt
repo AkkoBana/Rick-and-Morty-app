@@ -9,4 +9,5 @@ import io.reactivex.Single
 interface GetApiResponseUseCase {
     fun getCharacterInfo(id: String): Single<CharacterResults>
     fun getCharacterNameAndImage(): Single<CharacterNameImage>
+    fun getFilteretCharacterList(name: String): Single<CharacterNameImage>
 }

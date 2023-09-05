@@ -34,7 +34,6 @@ class CharacterAdapter(
                     .override(220, 220)
                     .centerCrop()
                     .into(ivCharacterAvatar)
-
                 ivCharacterAvatar.isVisible = true
             } else {
                 ivCharacterAvatar.isVisible = false
@@ -66,7 +65,7 @@ class CharacterAdapter(
     }
 
     override fun getItemCount(): Int =
-        characters.size - 1
+        characters.size
 
 
     fun updateItems(newCharacters: List<CharacterCard>) {

@@ -1,6 +1,5 @@
-package com.akkobana.rickandmortyapp.data
+package com.akkobana.rickandmortyapp.data.sharedpref
 
-import com.akkobana.rickandmortyapp.data.sharedpref.AuthSharedPref
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(

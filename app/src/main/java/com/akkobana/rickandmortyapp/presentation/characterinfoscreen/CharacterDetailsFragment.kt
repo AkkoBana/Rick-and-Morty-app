@@ -19,6 +19,11 @@ class CharacterDetailsFragment : Fragment() {
     private val vm: CharacterDetailsViewModel by viewModels()
     private val args: CharacterDetailsFragmentArgs by navArgs()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        getCharacterInfo()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,34 +33,37 @@ class CharacterDetailsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setCharacterInfo()
-        navigateToBack()
+        setupListeners()
+        observeValues()
     }
 
-    private fun setCharacterInfo() = with(binding) {
-        vm.characterInfo.observe(viewLifecycleOwner) {
-
-            Glide.with(root)
-                .load(it.image)
-                .centerCrop()
-                .into(ivCharacterAvatar)
-            tvName.text = it.name
-            tvStatusContent.text = it.status
-            tvSpeciesContent.text = it.species
-            tvGenderContent.text = it.gender
-            tvCreatedContent.text = it.created
+    private fun setupListeners() {
+        binding.tbProfile.setNavigationOnClickListener {
+            vm.setNavigateBackFlag()
         }
-        vm.fetchCharacterData(args.id)
     }
 
-    private fun navigateToBack() = with(binding) {
-        ibBack.setOnClickListener {
-            vm.navigateToBackFlag.observe(viewLifecycleOwner){
-                findNavController().navigateUp()
+    private fun observeValues() {
+        vm.characterDetailsLive.observe(viewLifecycleOwner) {
+            with(binding) {
+                Glide.with(root)
+                    .load(it.image)
+                    .centerCrop()
+                    .into(ivCharacterAvatar)
+                tvName.text = it.name
+                tvStatusContent.text = it.status
+                tvSpeciesContent.text = it.species
+                tvGenderContent.text = it.gender
+                tvCreatedContent.text = it.created
             }
-            vm.setNavigateToBackFlag()
         }
+        vm.navigateBackLive.observe(viewLifecycleOwner) {
+            findNavController().navigateUp()
+        }
+    }
 
+    private fun getCharacterInfo() {
+        vm.fetchCharacterData(args.id)
     }
 
 

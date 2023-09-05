@@ -1,6 +1,6 @@
 package com.akkobana.rickandmortyapp.domain.getauthdata
 
-import com.akkobana.rickandmortyapp.data.AuthRepository
+import com.akkobana.rickandmortyapp.data.sharedpref.AuthRepository
 import javax.inject.Inject
 
 class GetAuthStateUseCaseImpl @Inject constructor(

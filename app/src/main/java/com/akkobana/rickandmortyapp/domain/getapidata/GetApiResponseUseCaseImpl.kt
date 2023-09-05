@@ -1,10 +1,8 @@
 package com.akkobana.rickandmortyapp.domain.getapidata
 
-import com.akkobana.rickandmortyapp.data.ApiRepository
-import com.akkobana.rickandmortyapp.data.model.CharacterAllResults
+import com.akkobana.rickandmortyapp.data.api.ApiRepository
 import com.akkobana.rickandmortyapp.data.model.CharacterNameImage
 import com.akkobana.rickandmortyapp.data.model.CharacterResults
-import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -17,4 +15,8 @@ class GetApiResponseUseCaseImpl @Inject constructor(
 
     override fun getCharacterNameAndImage(): Single<CharacterNameImage> =
         apiRepository.getCharacterNameAndImage()
+
+    override fun getFilteretCharacterList(name: String): Single<CharacterNameImage> {
+        return apiRepository.getFilteretCharacterList(name)
+    }
 }

@@ -1,8 +1,8 @@
 package com.akkobana.rickandmortyapp.data.di
 
 import android.content.Context
-import com.akkobana.rickandmortyapp.data.AuthRepository
-import com.akkobana.rickandmortyapp.data.AuthRepositoryImpl
+import com.akkobana.rickandmortyapp.data.sharedpref.AuthRepository
+import com.akkobana.rickandmortyapp.data.sharedpref.AuthRepositoryImpl
 import com.akkobana.rickandmortyapp.data.sharedpref.AuthSharedPref
 import com.akkobana.rickandmortyapp.data.sharedpref.AuthSharedPrefImpl
 import com.akkobana.rickandmortyapp.domain.getauthdata.GetAuthStateUseCase

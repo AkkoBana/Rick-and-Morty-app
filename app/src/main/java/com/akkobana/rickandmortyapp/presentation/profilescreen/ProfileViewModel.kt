@@ -11,11 +11,11 @@ class ProfileViewModel @Inject constructor(
     private val saveAuthStateUseCase: SaveAuthStateUseCase
 ): ViewModel() {
 
-    val authStateFlag = MutableLiveData<Boolean>()
+    val authStateLive = MutableLiveData<Boolean>()
 
     fun setAuthStateFalse() {
         saveAuthStateUseCase.saveAuthState(false)
-        authStateFlag.value = false
+        authStateLive.value = false
     }
 
 }

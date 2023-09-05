@@ -3,27 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/dark"
     tools:context=".presentation.signinscreen.SignInFragment">
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etLogin"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="30dp"
         android:hint="@string/enter_login_hint"
+        android:textColor="@color/white"
+        android:textColorHint="@color/hint_color"
         android:textSize="20sp" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etPassword"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:hint="@string/enter_password_hint"
         android:inputType="textPassword"
-        android:textSize="20sp"/>
+        android:textColor="@color/white"
+        android:textColorHint="@color/hint_color"
+        android:textSize="20sp" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bSignInAuth"
@@ -31,6 +35,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_marginBottom="20dp"
-        android:text = "@string/sign_in"/>
+        android:background="@color/pink"
+        android:text="@string/sign_in"
+        android:textColor="@color/black" />
 
 </FrameLayout>

@@ -6,16 +6,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthViewModel @Inject constructor(): ViewModel() {
+class AuthViewModel @Inject constructor() : ViewModel() {
 
-    val navigateToSignUpFlag = MutableLiveData<Boolean>()
-    val navigateToSignInFlag = MutableLiveData<Boolean>()
+    val navigateToSignUpLive = MutableLiveData<Boolean>()
+    val navigateToSignInLive = MutableLiveData<Boolean>()
 
     fun navigateToSignUpFragment() {
-        navigateToSignUpFlag.value = true
+        navigateToSignUpLive.value = true
     }
 
     fun navigateToSignInFragment() {
-        navigateToSignInFlag.value = true
+        navigateToSignInLive.value = true
     }
 }

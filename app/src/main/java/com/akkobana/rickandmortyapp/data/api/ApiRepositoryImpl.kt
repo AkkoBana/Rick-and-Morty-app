@@ -1,11 +1,7 @@
-package com.akkobana.rickandmortyapp.data
+package com.akkobana.rickandmortyapp.data.api
 
-import android.util.Log
-import com.akkobana.rickandmortyapp.data.api.RickAndMortyApi
-import com.akkobana.rickandmortyapp.data.model.CharacterAllResults
 import com.akkobana.rickandmortyapp.data.model.CharacterNameImage
 import com.akkobana.rickandmortyapp.data.model.CharacterResults
-import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -17,4 +13,8 @@ class ApiRepositoryImpl @Inject constructor(
 
     override fun getCharacterNameAndImage(): Single<CharacterNameImage> {
         return rickAndMortyApi.getCharacterNameAndImage()}
+
+    override fun getFilteretCharacterList(name: String): Single<CharacterNameImage> {
+        return rickAndMortyApi.getFilteredCharacterList(name)
+    }
 }

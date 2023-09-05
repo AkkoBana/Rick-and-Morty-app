@@ -16,32 +16,32 @@ class CharactersListViewModel @Inject constructor(
     private val getApiResponseUseCase: GetApiResponseUseCase
 ) : ViewModel() {
 
-    val authState = MutableLiveData<Boolean>()
-    val navigateToProfileFragmentFlag = MutableLiveData<Boolean>()
-    val characterList = MutableLiveData<MutableList<CharacterCard>>()
-    val searchCharacterList = MutableLiveData<MutableList<CharacterCard>>()
+    val authStateLive = MutableLiveData<Boolean>()
+    val characterListLive = MutableLiveData<MutableList<CharacterCard>>()
 
     fun fetchNameAndImage() {
         getApiResponseUseCase.getCharacterNameAndImage()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                characterList.value = it.results
+                characterListLive.value = it.results
             }, {
 
             }).isDisposed
     }
 
     fun checkAuthState() {
-        authState.value = getAuthStateUseCase.getAuthState()
+        authStateLive.value = getAuthStateUseCase.getAuthState()
     }
 
-    fun changeNavigateToProfileFragmentFlag() {
-        navigateToProfileFragmentFlag.value = !navigateToProfileFragmentFlag.value!!
-    }
+    fun fetchFilteredNameAndImage(charName: String) {
+        getApiResponseUseCase.getFilteretCharacterList(charName)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                characterListLive.value = it.results
+            }, {
 
-    fun filterCharacterList(charName: String) {
-        searchCharacterList.value =
-            characterList.value?.filter { charName.lowercase() in it.name.lowercase() } as MutableList<CharacterCard>?
+            }).isDisposed
     }
 }

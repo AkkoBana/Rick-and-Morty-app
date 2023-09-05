@@ -7,10 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.akkobana.rickandmortyapp.databinding.FragmentSignUpBinding
 import com.akkobana.rickandmortyapp.presentation.MainActivity
-import com.akkobana.rickandmortyapp.presentation.authscreen.AuthFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,7 +31,7 @@ class SignUpFragment : Fragment() {
     }
 
     private fun signUp() = with(binding) {
-        vm.validationFlag.observe(viewLifecycleOwner) {
+        vm.isSavedLive.observe(viewLifecycleOwner) {
             requireActivity().finish()
             requireActivity().startActivity(Intent(requireContext(), MainActivity::class.java))
         }

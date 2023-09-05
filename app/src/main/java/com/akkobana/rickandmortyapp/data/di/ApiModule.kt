@@ -1,8 +1,8 @@
 package com.akkobana.rickandmortyapp.data.di
 
 import android.content.Context
-import com.akkobana.rickandmortyapp.data.ApiRepository
-import com.akkobana.rickandmortyapp.data.ApiRepositoryImpl
+import com.akkobana.rickandmortyapp.data.api.ApiRepository
+import com.akkobana.rickandmortyapp.data.api.ApiRepositoryImpl
 import com.akkobana.rickandmortyapp.data.api.RickAndMortyApi
 import com.akkobana.rickandmortyapp.domain.getapidata.GetApiResponseUseCase
 import com.akkobana.rickandmortyapp.domain.getapidata.GetApiResponseUseCaseImpl
@@ -12,7 +12,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

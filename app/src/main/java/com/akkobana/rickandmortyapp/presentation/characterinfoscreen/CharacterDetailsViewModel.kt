@@ -1,6 +1,5 @@
 package com.akkobana.rickandmortyapp.presentation.characterinfoscreen
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.akkobana.rickandmortyapp.data.model.CharacterResults
@@ -15,23 +14,22 @@ internal class CharacterDetailsViewModel @Inject constructor(
     private val getApiResponseUseCase: GetApiResponseUseCase
 ) : ViewModel() {
 
-    val characterInfo = MutableLiveData<CharacterResults>()
-    val navigateToBackFlag = MutableLiveData<Boolean>()
+    val characterDetailsLive = MutableLiveData<CharacterResults>()
+    val navigateBackLive = MutableLiveData<Boolean>()
 
     fun fetchCharacterData(id: Int) {
-        Log.d("MyLog", id.toString())
         getApiResponseUseCase.getCharacterInfo(id.toString())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                characterInfo.value = it
+                characterDetailsLive.value = it
             }, {
 
             }).isDisposed
     }
 
-    fun setNavigateToBackFlag() {
-        navigateToBackFlag.value = true
+    fun setNavigateBackFlag() {
+        navigateBackLive.value = true
     }
 
 

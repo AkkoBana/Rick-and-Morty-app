@@ -7,11 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.akkobana.rickandmortyapp.R
 import com.akkobana.rickandmortyapp.databinding.FragmentSignInBinding
-import com.akkobana.rickandmortyapp.databinding.FragmentSignUpBinding
 import com.akkobana.rickandmortyapp.presentation.MainActivity
-import com.akkobana.rickandmortyapp.presentation.MainApplication
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,15 +27,18 @@ class SignInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         signIn()
+        observeCheckCredential()
+    }
+
+    private fun observeCheckCredential() {
+        vm.checkCredentialLive.observe(viewLifecycleOwner) {
+            requireActivity().finish()
+            requireActivity().startActivity(Intent(requireContext(), MainActivity::class.java))
+        }
     }
 
     private fun signIn() = with(binding) {
         bSignInAuth.setOnClickListener {
-            vm.validationFlag.observe(viewLifecycleOwner) {
-                requireActivity().finish()
-                requireActivity().startActivity(Intent(requireContext(), MainActivity::class.java))
-            }
-
             val login = etLogin.text.toString()
             val password = etPassword.text.toString()
             vm.checkUserEntry(login, password)

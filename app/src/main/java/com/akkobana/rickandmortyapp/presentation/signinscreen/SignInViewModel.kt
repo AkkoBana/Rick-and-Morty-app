@@ -15,17 +15,17 @@ class SignInViewModel @Inject constructor(
     private val saveAuthStateUseCase: SaveAuthStateUseCase
 ): ViewModel() {
 
-    val validationFlag = MutableLiveData<Boolean>()
-    val showErrorToastFlag = MutableLiveData<Boolean>()
+    val checkCredentialLive = MutableLiveData<Boolean>()
+    val showErrorToastLive = MutableLiveData<Boolean>()
 
     fun checkUserEntry(login: String, password: String) {
-        val aboba = getLoginUseCase.getLogin()
-        val aboab = getPasswordUseCase.getPassword()
-        if (aboba == login && aboab == password) {
+        val savedLogin = getLoginUseCase.getLogin()
+        val savedPassword = getPasswordUseCase.getPassword()
+        if (savedLogin == login && savedPassword == password) {
             saveAuthStateUseCase.saveAuthState(true)
-            validationFlag.value = true
+            checkCredentialLive.value = true
         } else {
-            showErrorToastFlag.value = true
+            showErrorToastLive.value = true
         }
     }
 

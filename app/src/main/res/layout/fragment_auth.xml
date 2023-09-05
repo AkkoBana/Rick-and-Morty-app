@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/dark"
     tools:context=".presentation.authscreen.AuthFragment">
 
 
@@ -13,7 +13,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="30dp"
-        android:text="@string/sign_in" />
+        android:background="@color/pink"
+        android:text="@string/sign_in"
+        android:textColor="@color/dark" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bSignUp"
@@ -21,7 +23,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:text="@string/sign_up" />
+        android:background="@color/pink"
+        android:text="@string/sign_up"
+        android:textColor="@color/dark" />
 
 
 </FrameLayout>
