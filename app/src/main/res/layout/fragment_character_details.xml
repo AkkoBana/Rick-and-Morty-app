@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark"
-    tools:context=".presentation.characterdetailsscreen.CharacterDetailsFragment">
+    tools:context=".presentation.ui.characterdetails.CharacterDetailsFragment">
 
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -14,11 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/green"
+        android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_back_arrow"
-        android:elevation="10dp"/>
+        app:navigationIcon="@drawable/ic_back_arrow" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivCharacterAvatar"
@@ -42,18 +42,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivCharacterAvatar" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
+    <FrameLayout
+        android:id="@+id/flProgressBar"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/dark"
-        android:elevation="20dp"
-        android:indeterminateTint="@color/pink"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/tbProfile">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/dark"
+            android:indeterminateTint="@color/pink"
+            android:layout_gravity="center"
+            android:scrollbarSize="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </FrameLayout>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvStatus"

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark"
-    tools:context=".presentation.signinscreen.SignInFragment">
+    tools:context=".presentation.ui.signin.SignInFragment">
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etLogin"

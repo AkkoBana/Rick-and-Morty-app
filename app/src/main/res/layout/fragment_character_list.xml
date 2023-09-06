@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark"
-    tools:context=".presentation.charactersscreen.CharactersListFragment">
+    tools:context=".presentation.ui.characterlist.CharactersListFragment">
 
 
     <androidx.appcompat.widget.AppCompatEditText
@@ -17,13 +17,13 @@
         android:layout_marginEnd="40dp"
         android:background="@drawable/rounded_edit_text"
         android:drawableStart="@drawable/ic_search"
-
         android:drawablePadding="8dp"
+        android:drawableTint="@color/dark"
         android:hint="@string/search"
         android:imeOptions="actionSearch"
         android:inputType="text"
         android:padding="12dp"
-        android:textColor="@color/black"
+        android:textColor="@color/dark"
         android:textColorHint="@color/hint_color"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,15 +31,27 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/ibCloseSearchCharacters"
+        android:id="@+id/ibMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/dark"
-        android:src="@drawable/ic_close"
+        android:src="@drawable/ic_menu"
         android:tint="@color/pink"
         app:layout_constraintBottom_toBottomOf="@+id/etSearchCharacters"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/etSearchCharacters"
+        app:layout_constraintTop_toTopOf="@+id/etSearchCharacters" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/ibCloseSearchCharacters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="@color/search_color"
+        android:src="@drawable/ic_close"
+        android:tint="@color/dark"
+        app:layout_constraintBottom_toBottomOf="@+id/etSearchCharacters"
+        app:layout_constraintEnd_toEndOf="@+id/etSearchCharacters"
         app:layout_constraintTop_toTopOf="@+id/etSearchCharacters" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -62,7 +74,6 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-
             app:spanCount="3"
             tools:itemCount="5"
             tools:listitem="@layout/item_character_card" />
@@ -70,14 +81,13 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
         android:background="@color/dark"
-        android:elevation="20dp"
         android:indeterminateTint="@color/pink"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/swipeRefresh"
-        app:layout_constraintEnd_toEndOf="@+id/swipeRefresh"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/swipeRefresh"
         app:layout_constraintTop_toTopOf="@+id/swipeRefresh" />
 

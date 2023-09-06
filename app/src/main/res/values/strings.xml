@@ -15,4 +15,6 @@
     <string name="gender">Gender:</string>
     <string name="created">Created:</string>
     <string name="back">Back to character list</string>
+    <string name="save">save</string>
+    <string name="clear">clear</string>
 </resources>
