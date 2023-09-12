@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_charactersListFragment_to_characterInfoFragment"
             app:destination="@id/characterInfoFragment" />
+        <action
+            android:id="@+id/action_charactersListFragment_to_viewPagerFragment"
+            app:destination="@id/viewPagerFragment" />
     </fragment>
     <include app:graph="@navigation/auth_nav_graph" />
     <fragment
@@ -35,4 +38,9 @@
             android:name="id"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/viewPagerFragment"
+        android:name="com.akkobana.rickandmortyapp.presentation.ui.viewpager.ViewPagerFragment"
+        android:label="fragment_view_pager"
+        tools:layout="@layout/fragment_view_pager" />
 </navigation>

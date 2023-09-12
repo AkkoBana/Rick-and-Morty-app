@@ -1,5 +1,6 @@
 package com.akkobana.rickandmortyapp.data.api
 
+import com.akkobana.rickandmortyapp.data.model.CharacterCard
 import com.akkobana.rickandmortyapp.data.model.CharacterNameImage
 import com.akkobana.rickandmortyapp.data.model.CharacterResults
 import io.reactivex.Single
@@ -11,8 +12,18 @@ class ApiRepositoryImpl @Inject constructor(
     override fun getCharacterInfo(id: String): Single<CharacterResults> =
         rickAndMortyApi.getCharacterInfo(id)
 
-    override fun getCharacterNameAndImage(name: String): Single<CharacterNameImage> {
-        return rickAndMortyApi.getCharacterNameAndImage(name)
-    }
+    override fun getAllCharactersNameAndImage(
+        name: String,
+        status: String,
+        gender: String
+    ): Single<CharacterNameImage> =
+        rickAndMortyApi.getAllCharactersNameAndImage(name, status, gender)
 
+    override fun getCharacterNameAndImageById(
+        id: List<String>,
+        name: String,
+        status: String,
+        gender: String
+    ): Single<List<CharacterCard>> =
+        rickAndMortyApi.getCharacterNameAndImageById(id,name,status,gender)
 }

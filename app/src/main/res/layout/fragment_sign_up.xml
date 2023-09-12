@@ -8,8 +8,9 @@
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etLogin"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
         android:textColorHint="@color/hint_color"
         android:layout_gravity="center"
         android:textColor="@color/white"
@@ -19,8 +20,9 @@
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etPassword"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
         android:textColorHint="@color/hint_color"
         android:textColor="@color/white"
         android:layout_gravity="center"

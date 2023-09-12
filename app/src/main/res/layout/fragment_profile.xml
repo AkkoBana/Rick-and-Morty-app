@@ -7,13 +7,22 @@
     android:background="@color/dark"
     tools:context=".presentation.ui.profile.ProfileFragment">
 
-    <com.google.android.material.appbar.MaterialToolbar xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/tbProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/green"
         app:navigationIcon="@drawable/ic_back_arrow" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bClearTables"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="50dp"
+        android:background="@color/pink"
+        android:text="@string/clear_button_text"
+        android:textColor="@color/dark" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bExit"

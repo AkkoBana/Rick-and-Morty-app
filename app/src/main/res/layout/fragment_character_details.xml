@@ -42,30 +42,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivCharacterAvatar" />
 
-    <FrameLayout
-        android:id="@+id/flProgressBar"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/tbProfile">
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/dark"
-            android:indeterminateTint="@color/pink"
-            android:layout_gravity="center"
-            android:scrollbarSize="12dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </FrameLayout>
-
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvStatus"
         android:layout_width="wrap_content"
@@ -115,7 +91,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:text="status"
         android:textColor="@color/green"
         app:layout_constraintBottom_toBottomOf="@+id/tvStatus"
         app:layout_constraintStart_toEndOf="@+id/tvStatus"
@@ -126,7 +101,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:text="species"
         android:textColor="@color/green"
         app:layout_constraintBottom_toBottomOf="@+id/tvSpecies"
         app:layout_constraintStart_toEndOf="@+id/tvSpecies"
@@ -137,7 +111,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:text="gender"
         android:textColor="@color/green"
         app:layout_constraintBottom_toBottomOf="@+id/tvGender"
         app:layout_constraintStart_toEndOf="@+id/tvGender"
@@ -148,9 +121,56 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:text="created"
         android:textColor="@color/green"
         app:layout_constraintBottom_toBottomOf="@+id/tvCreated"
         app:layout_constraintStart_toEndOf="@+id/tvCreated"
         app:layout_constraintTop_toTopOf="@+id/tvCreated" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/ibLeastLiked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_thumb_down_off"
+        android:background="@color/dark"
+        android:tint="@color/pink"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/ibFavourite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_thumb_up_off"
+        android:background="@color/dark"
+        android:tint="@color/pink"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ibLeastLiked" />
+
+    <FrameLayout
+        android:id="@+id/flProgressBar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/dark"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tbProfile">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/dark"
+            android:indeterminateTint="@color/pink"
+            android:scrollbarSize="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

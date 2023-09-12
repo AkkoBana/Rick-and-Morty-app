@@ -15,8 +15,8 @@ class SignInViewModel @Inject constructor(
     private val saveAuthStateUseCase: SaveAuthStateUseCase
 ): ViewModel() {
 
+    val toastErrorText = "Wrong login or password"
     val checkCredentialLive = MutableLiveData<Boolean>()
-    val showErrorToastLive = MutableLiveData<Boolean>()
 
     fun checkUserEntry(login: String, password: String) {
         val savedLogin = getLoginUseCase.getLogin()
@@ -25,7 +25,7 @@ class SignInViewModel @Inject constructor(
             saveAuthStateUseCase.saveAuthState(true)
             checkCredentialLive.value = true
         } else {
-            showErrorToastLive.value = true
+            checkCredentialLive.value = false
         }
     }
 

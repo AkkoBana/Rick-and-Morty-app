@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/dark"
-        android:src="@drawable/ic_menu"
+        android:src="@drawable/ic_filter"
         android:tint="@color/pink"
         app:layout_constraintBottom_toBottomOf="@+id/etSearchCharacters"
         app:layout_constraintEnd_toEndOf="parent"
@@ -102,5 +102,17 @@
         android:tint="@color/pink"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bViewPageFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:background="@color/dark"
+        android:text="@string/view_pager"
+        android:textColor="@color/pink"
+        app:layout_constraintBottom_toBottomOf="@+id/bToProfileFragment"
+        app:layout_constraintEnd_toStartOf="@+id/bToProfileFragment"
+        app:layout_constraintTop_toTopOf="@+id/bToProfileFragment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

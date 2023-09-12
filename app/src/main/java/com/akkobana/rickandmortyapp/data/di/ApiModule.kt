@@ -6,7 +6,6 @@ import com.akkobana.rickandmortyapp.data.api.ApiRepositoryImpl
 import com.akkobana.rickandmortyapp.data.api.RickAndMortyApi
 import com.akkobana.rickandmortyapp.domain.getapidata.GetApiResponseUseCase
 import com.akkobana.rickandmortyapp.domain.getapidata.GetApiResponseUseCaseImpl
-import com.akkobana.rickandmortyapp.utils.Utils.BASE_URL_RICK_AND_MORTY
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import dagger.Module
 import dagger.Provides
@@ -46,4 +45,8 @@ class ApiModule {
     @Provides
     fun provideGetApiResponseUseCase(apiRepository: ApiRepository): GetApiResponseUseCase =
         GetApiResponseUseCaseImpl(apiRepository)
+
+    companion object {
+        const val BASE_URL_RICK_AND_MORTY = "https://rickandmortyapi.com/api/"
+    }
 }

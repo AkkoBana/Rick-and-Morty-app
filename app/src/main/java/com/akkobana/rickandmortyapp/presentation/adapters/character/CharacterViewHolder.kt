@@ -14,10 +14,12 @@ class CharacterViewHolder(
     fun bind(item: CharacterCard) = with(binding) {
 
         itemView.setOnClickListener {
-            setOnClickItem.invoke(item.id)
+            if (item.id != null) {
+                setOnClickItem.invoke(item.id)
+            }
         }
 
-        if (item.avatar.isNotEmpty()) {
+        if (!item.avatar.isNullOrEmpty()) {
             Glide.with(root)
                 .load(item.avatar)
                 .override(220, 220)
@@ -28,7 +30,7 @@ class CharacterViewHolder(
             ivCharacterAvatar.isVisible = false
         }
 
-        if (item.name.isNotEmpty()) {
+        if (!item.name.isNullOrEmpty()) {
             tvCharacterName.text = item.name
             tvCharacterName.isVisible = true
         } else {

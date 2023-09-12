@@ -1,7 +1,7 @@
 package com.akkobana.rickandmortyapp.presentation.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.akkobana.rickandmortyapp.R
 import dagger.hilt.android.AndroidEntryPoint
 

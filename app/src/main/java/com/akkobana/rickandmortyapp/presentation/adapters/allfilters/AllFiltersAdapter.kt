@@ -1,6 +1,5 @@
 package com.akkobana.rickandmortyapp.presentation.adapters.allfilters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,10 +7,12 @@ import com.akkobana.rickandmortyapp.databinding.ItemFiltersBinding
 import com.akkobana.rickandmortyapp.presentation.adapters.BaseViewHolder
 import com.akkobana.rickandmortyapp.presentation.adapters.filter.FilterAdapter
 
-class AllFiltersAdapter(private val mainList: List<String>, private val viewType: FilterAdapter.ViewType) :
-    RecyclerView.Adapter<BaseViewHolder>() {
+class AllFiltersAdapter(
+    private val mainList: List<String>,
+    private val viewType: FilterAdapter.ViewType,
+    private val filterValueCallback: (String) -> Unit
+) : RecyclerView.Adapter<BaseViewHolder>() {
     private var oldPosition: Int? = null
-    private var newPosition: Int? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -21,7 +22,11 @@ class AllFiltersAdapter(private val mainList: List<String>, private val viewType
                     layoutInflater,
                     parent,
                     false
-                )
+                ), {
+                    updateItem(it)
+                }, {
+                    filterValueCallback.invoke(it)
+                }
             )
 
             else -> GenderViewHolder(
@@ -29,11 +34,13 @@ class AllFiltersAdapter(private val mainList: List<String>, private val viewType
                     layoutInflater,
                     parent,
                     false
-                )
-            ) {
-                if(newPosition != it) newPosition = it
-                updateItem(it)
-            }
+                ),
+                {
+                    updateItem(it)
+                },
+                {
+                    filterValueCallback.invoke(it)
+                })
         }
     }
 
@@ -43,9 +50,8 @@ class AllFiltersAdapter(private val mainList: List<String>, private val viewType
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         when (holder) {
             is StatusViewHolder -> holder.bind(mainList[position])
-            is GenderViewHolder -> holder.bind(mainList[position], oldPosition)
+            is GenderViewHolder -> holder.bind(mainList[position])
         }
-        oldPosition = newPosition
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -56,8 +62,9 @@ class AllFiltersAdapter(private val mainList: List<String>, private val viewType
     }
 
     private fun updateItem(position: Int) {
-        if(oldPosition != null) {
-            this.notifyItemChanged(oldPosition!!)
+        if (oldPosition != null && oldPosition != position) {
+            notifyItemChanged(oldPosition!!)
+            oldPosition = position
         } else {
             oldPosition = position
         }
@@ -68,8 +75,4 @@ class AllFiltersAdapter(private val mainList: List<String>, private val viewType
         GENDER_TYPE
     }
 
-    companion object {
-        const val STATUS_FILTER = "Status"
-        const val GENDER_FILTER = "Gender"
-    }
 }

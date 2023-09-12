@@ -1,7 +1,6 @@
-package com.akkobana.rickandmortyapp.utils
+package com.akkobana.rickandmortyapp.presentation.adapters.character
 
 import androidx.recyclerview.widget.DiffUtil
-import com.akkobana.rickandmortyapp.data.model.CharacterCard
 
 class ItemDiffCallback(private val oldItems: List<Any>, private val newItems: List<Any>) :
     DiffUtil.Callback() {

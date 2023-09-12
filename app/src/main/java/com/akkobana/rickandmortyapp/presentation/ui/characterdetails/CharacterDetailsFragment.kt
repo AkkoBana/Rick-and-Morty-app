@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.akkobana.rickandmortyapp.R
 import com.akkobana.rickandmortyapp.databinding.FragmentCharacterDetailsBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -33,7 +34,7 @@ class CharacterDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCharacterDetailsBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -41,11 +42,19 @@ class CharacterDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupListeners()
         observeValues()
+        vm.fetchLikedCharacterFromTable(args.id)
+        vm.fetchDislikedCharacterFromTable(args.id)
     }
 
-    private fun setupListeners() {
-        binding.tbProfile.setNavigationOnClickListener {
+    private fun setupListeners() = with(binding) {
+        tbProfile.setNavigationOnClickListener {
             vm.setNavigateBackFlag()
+        }
+        ibFavourite.setOnClickListener {
+            vm.changeIsLikedValue()
+        }
+        ibLeastLiked.setOnClickListener {
+            vm.changeIsDislikedValue()
         }
     }
 
@@ -54,16 +63,16 @@ class CharacterDetailsFragment : Fragment() {
             with(binding) {
                 Glide.with(root)
                     .load(it.image)
-                    .listener(object : RequestListener<Drawable>{
+                    .listener(object : RequestListener<Drawable> {
                         override fun onLoadFailed(
                             e: GlideException?,
                             model: Any?,
                             target: Target<Drawable>,
                             isFirstResource: Boolean
                         ): Boolean {
+                            vm.setIsLoadingFalse()
                             return false
                         }
-
                         override fun onResourceReady(
                             resource: Drawable,
                             model: Any,
@@ -71,9 +80,9 @@ class CharacterDetailsFragment : Fragment() {
                             dataSource: DataSource,
                             isFirstResource: Boolean
                         ): Boolean {
-                            return true
+                            vm.setIsLoadingFalse()
+                            return false
                         }
-
                     })
                     .centerCrop()
                     .into(ivCharacterAvatar)
@@ -88,12 +97,25 @@ class CharacterDetailsFragment : Fragment() {
         vm.navigateBackLive.observe(viewLifecycleOwner) {
             findNavController().navigateUp()
         }
-        vm.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            with(binding) {
-
-
-
-                flProgressBar.isVisible = isLoading
+        vm.isLoadingLive.observe(viewLifecycleOwner) { isLoading ->
+            binding.flProgressBar.isVisible = isLoading
+        }
+        vm.isLikedLive.observe(viewLifecycleOwner) { isFavourite ->
+            if (isFavourite) {
+                binding.ibFavourite.setImageResource(R.drawable.ic_thumb_up)
+                vm.insertLikedCharacterInTable(args.id)
+            } else {
+                binding.ibFavourite.setImageResource(R.drawable.ic_thumb_up_off)
+                vm.deleteLikedCharacterFromTable(args.id)
+            }
+        }
+        vm.isDislikedLive.observe(viewLifecycleOwner) { isLeastLiked ->
+            if (isLeastLiked) {
+                binding.ibLeastLiked.setImageResource(R.drawable.ic_thumb_down)
+                vm.insertDislikedCharacterInTable(args.id)
+            } else {
+                binding.ibLeastLiked.setImageResource(R.drawable.ic_thumb_down_off)
+                vm.deleteDislikedCharacterFromTable(args.id)
             }
         }
     }

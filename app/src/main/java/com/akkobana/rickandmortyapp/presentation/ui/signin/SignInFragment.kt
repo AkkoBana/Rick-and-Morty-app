@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.akkobana.rickandmortyapp.databinding.FragmentSignInBinding
@@ -20,7 +21,7 @@ class SignInFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSignInBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -32,8 +33,12 @@ class SignInFragment : Fragment() {
 
     private fun observeCheckCredential() {
         vm.checkCredentialLive.observe(viewLifecycleOwner) {
-            requireActivity().finish()
-            requireActivity().startActivity(Intent(requireContext(), MainActivity::class.java))
+            if (it) {
+                requireActivity().finish()
+                requireActivity().startActivity(Intent(requireContext(), MainActivity::class.java))
+            } else {
+                Toast.makeText(requireContext(), vm.toastErrorText, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

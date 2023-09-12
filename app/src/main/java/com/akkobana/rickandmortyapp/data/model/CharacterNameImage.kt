@@ -4,6 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 data class CharacterNameImage(
     @SerializedName("results")
-    val results: MutableList<CharacterCard>
+    val results: MutableList<CharacterCard>? = null
 )
 

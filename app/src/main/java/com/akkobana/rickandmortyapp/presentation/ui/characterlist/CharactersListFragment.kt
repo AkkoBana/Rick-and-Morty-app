@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.akkobana.rickandmortyapp.databinding.FragmentCharacterListBinding
 import com.akkobana.rickandmortyapp.presentation.adapters.character.CharacterAdapter
 import com.akkobana.rickandmortyapp.presentation.ui.filter.FilterDialog
-import com.akkobana.rickandmortyapp.utils.hideKeyboard
+import com.akkobana.rickandmortyapp.utils.ExtensionsKeyboardUtil.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -21,28 +21,29 @@ class CharactersListFragment : Fragment() {
 
     private lateinit var binding: FragmentCharacterListBinding
     private val vm: CharactersListViewModel by viewModels()
-    private lateinit var adapter: CharacterAdapter
+    private val adapter by lazy {
+        CharacterAdapter(mutableListOf()) {
+            vm.characterAdapterCallBack(it) { id ->
+                findNavController()
+                    .navigate(
+                        CharactersListFragmentDirections.actionCharactersListFragmentToCharacterInfoFragment(
+                            id
+                        )
+                    )
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initAdapter()
         getResponseList()
+        hideKeyboard()
     }
 
     private fun getResponseList() {
         vm.fetchNameAndImage()
     }
 
-    private fun initAdapter() {
-        adapter = CharacterAdapter(mutableListOf()) {
-            findNavController()
-                .navigate(
-                    CharactersListFragmentDirections.actionCharactersListFragmentToCharacterInfoFragment(
-                        it
-                    )
-                )
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,14 +83,24 @@ class CharactersListFragment : Fragment() {
             binding.swipeRefresh.isRefreshing = false
         }
         ibMenu.setOnClickListener {
-            FilterDialog(vm.list).show(childFragmentManager, "")
+            val filterDialog = FilterDialog(vm.filterEntity) {
+                if (it[FAVOURITES_KEY] == "true") {
+                    vm.fetchNameAndImage(status = it[STATUS_KEY], gender = it[GENDER_KEY])
+                } else {
+                    vm.fetchNameAndImage(status = it[STATUS_KEY], gender = it[GENDER_KEY])
+                }
+            }
+            filterDialog.show(parentFragmentManager, "dialog fragment")
+
+        }
+        bViewPageFragment.setOnClickListener {
+            findNavController().navigate(CharactersListFragmentDirections.actionCharactersListFragmentToViewPagerFragment())
         }
     }
 
     private fun observeLiveValue() {
         vm.characterListLive.observe(viewLifecycleOwner) {
-            adapter.updateItems(it)
-            binding.rvCharacterList.isVisible = true
+            adapter.submitList(it)
         }
         vm.authStateLive.observe(viewLifecycleOwner) {
             if (!it) {
@@ -98,8 +109,8 @@ class CharactersListFragment : Fragment() {
                 )
             }
         }
-        vm.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            binding.rvCharacterList.isVisible = false
+        vm.isLoadingLive.observe(viewLifecycleOwner) { isLoading ->
+            binding.rvCharacterList.isVisible = !isLoading
             binding.progressBar.isVisible = isLoading
         }
     }
@@ -110,5 +121,11 @@ class CharactersListFragment : Fragment() {
 
     private fun checkAuthState() {
         vm.checkAuthState()
+    }
+
+    companion object {
+        const val STATUS_KEY = "status"
+        const val GENDER_KEY = "gender"
+        const val FAVOURITES_KEY = "favourites"
     }
 }

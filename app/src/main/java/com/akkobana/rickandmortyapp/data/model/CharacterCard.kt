@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class CharacterCard(
     @SerializedName("id")
-    val id: Int,
+    val id: Int? = null,
     @SerializedName("name")
-    val name: String,
+    val name: String? = null,
     @SerializedName("image")
-    val avatar: String
+    val avatar: String? = null
 )

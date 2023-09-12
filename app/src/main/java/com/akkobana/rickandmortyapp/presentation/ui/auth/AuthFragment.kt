@@ -29,7 +29,7 @@ class AuthFragment : Fragment() {
         openSignInFragment()
     }
 
-    fun openSignUpFragment() = with(binding) {
+    private fun openSignUpFragment() = with(binding) {
         bSignUp.setOnClickListener {
             vm.navigateToSignUpLive.observe(viewLifecycleOwner) {
                 findNavController().navigate(AuthFragmentDirections.actionAuthFragmentToSignUpFragment())
@@ -38,7 +38,7 @@ class AuthFragment : Fragment() {
         }
     }
 
-    fun openSignInFragment() = with(binding) {
+    private fun openSignInFragment() = with(binding) {
         bSignIn.setOnClickListener {
             vm.navigateToSignInLive.observe(viewLifecycleOwner) {
                 findNavController().navigate(AuthFragmentDirections.actionAuthFragmentToSignInFragment())

@@ -21,21 +21,26 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentProfileBinding.inflate(layoutInflater)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        navigateBack()
-        exitFromProfile()
         observeAuthState()
+        setupListeners()
     }
 
-    private fun navigateBack() = with(binding) {
+    private fun setupListeners() = with(binding) {
+        bClearTables.setOnClickListener {
+            vm.clearTables()
+        }
         tbProfile.setNavigationOnClickListener {
             findNavController().popBackStack()
+        }
+        bExit.setOnClickListener {
+            vm.setAuthStateFalse()
         }
     }
 
@@ -48,9 +53,4 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun exitFromProfile() = with(binding) {
-        bExit.setOnClickListener {
-            vm.setAuthStateFalse()
-        }
-    }
 }

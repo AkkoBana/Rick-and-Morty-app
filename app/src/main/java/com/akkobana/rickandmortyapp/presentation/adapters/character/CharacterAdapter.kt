@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.akkobana.rickandmortyapp.data.model.CharacterCard
 import com.akkobana.rickandmortyapp.databinding.ItemCharacterCardBinding
-import com.akkobana.rickandmortyapp.utils.ItemDiffCallback
 
 class CharacterAdapter(
     private val characters: MutableList<CharacterCard>,
@@ -34,7 +33,7 @@ class CharacterAdapter(
         characters.size
 
 
-    fun updateItems(newCharacters: List<CharacterCard>) {
+    fun submitList(newCharacters: List<CharacterCard>) {
         val diffCallback = ItemDiffCallback(characters, newCharacters)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         characters.clear()
