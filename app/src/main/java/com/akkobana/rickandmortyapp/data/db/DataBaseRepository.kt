@@ -4,20 +4,19 @@ import com.akkobana.rickandmortyapp.data.db.dislikedcharacters.DislikedCharacter
 import com.akkobana.rickandmortyapp.data.db.likedcharacters.LikedCharacterInfoTuple
 import com.akkobana.rickandmortyapp.data.model.LikedCharacterDbEntity
 import com.akkobana.rickandmortyapp.data.model.DislikedCharacterDbEntity
-import io.reactivex.Completable
-import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
 
 interface DataBaseRepository {
     // Liked
-    fun insertNewLikedCharacter(likedCharacter: LikedCharacterDbEntity): Completable
-    fun getAllLikedCharacters(): Single<List<LikedCharacterInfoTuple>>
-    fun deleteLikedCharacterById(likedCharacter: LikedCharacterDbEntity): Completable
-    fun getLikedCharacterById(likedCharacterId: Int): Single<LikedCharacterInfoTuple>
+    suspend fun insertNewLikedCharacter(likedCharacter: LikedCharacterDbEntity)
+    fun getAllLikedCharacters(): Flow<List<LikedCharacterInfoTuple>>
+    suspend fun deleteLikedCharacterById(likedCharacter: LikedCharacterDbEntity)
+    fun getLikedCharacterById(likedCharacterId: Int): Flow<LikedCharacterInfoTuple>
 
     // Disliked
-    fun insertNewDislikedCharacter(dislikedCharacterDbEntity: DislikedCharacterDbEntity): Completable
-    fun getAllDislikedCharacters(): Single<List<DislikedCharacterInfoTuple>>
-    fun deleteDislikedCharacterById(dislikedCharacterDbEntity: DislikedCharacterDbEntity): Completable
-    fun getDislikedCharacterById(dislikedCharacterId: Int): Single<DislikedCharacterInfoTuple>
-    fun deleteAllLikedDislikedCharacters(): Completable
+    suspend fun insertNewDislikedCharacter(dislikedCharacterDbEntity: DislikedCharacterDbEntity)
+    fun getAllDislikedCharacters(): Flow<List<DislikedCharacterInfoTuple>>
+    suspend fun deleteDislikedCharacterById(dislikedCharacterDbEntity: DislikedCharacterDbEntity)
+    fun getDislikedCharacterById(dislikedCharacterId: Int): Flow<DislikedCharacterInfoTuple>
+    fun deleteAllLikedDislikedCharacters()
 }

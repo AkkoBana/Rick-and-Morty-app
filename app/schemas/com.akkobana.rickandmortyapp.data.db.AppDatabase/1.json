@@ -2,21 +2,27 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "fa841a8e356d0f429c2776cf697abff1",
+    "identityHash": "9e2f102aeddb40cef8f578d5dcd0253a",
     "entities": [
       {
         "tableName": "liked",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `characterId` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "characterId",
+            "columnName": "characterId",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
-          "autoGenerate": false,
+          "autoGenerate": true,
           "columnNames": [
             "id"
           ]
@@ -48,7 +54,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fa841a8e356d0f429c2776cf697abff1')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9e2f102aeddb40cef8f578d5dcd0253a')"
     ]
   }
 }

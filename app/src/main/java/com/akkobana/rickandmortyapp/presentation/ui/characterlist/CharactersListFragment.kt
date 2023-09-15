@@ -8,12 +8,16 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.akkobana.rickandmortyapp.databinding.FragmentCharacterListBinding
 import com.akkobana.rickandmortyapp.presentation.adapters.character.CharacterAdapter
 import com.akkobana.rickandmortyapp.presentation.ui.filter.FilterDialog
 import com.akkobana.rickandmortyapp.utils.ExtensionsKeyboardUtil.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -56,7 +60,7 @@ class CharactersListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initRv()
         checkAuthState()
-        observeLiveValue()
+        observeFlowState()
         setupListener()
     }
 
@@ -98,20 +102,24 @@ class CharactersListFragment : Fragment() {
         }
     }
 
-    private fun observeLiveValue() {
-        vm.characterListLive.observe(viewLifecycleOwner) {
+    private fun observeFlowState() {
+        vm.characterListState.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
-        vm.authStateLive.observe(viewLifecycleOwner) {
-            if (!it) {
-                findNavController().navigate(
-                    CharactersListFragmentDirections.actionCharactersListFragmentToAuthNavGraph()
-                )
+        lifecycleScope.launch(Dispatchers.IO) {
+            vm.authStateState.collect {
+                if (!it) {
+                    findNavController().navigate(
+                        CharactersListFragmentDirections.actionCharactersListFragmentToAuthNavGraph()
+                    )
+                }
             }
         }
-        vm.isLoadingLive.observe(viewLifecycleOwner) { isLoading ->
-            binding.rvCharacterList.isVisible = !isLoading
-            binding.progressBar.isVisible = isLoading
+        lifecycleScope.launch(Dispatchers.IO) {
+            vm.isLoadingState.collect { isLoading ->
+                binding.rvCharacterList.isVisible = !isLoading
+                binding.progressBar.isVisible = isLoading
+            }
         }
     }
 

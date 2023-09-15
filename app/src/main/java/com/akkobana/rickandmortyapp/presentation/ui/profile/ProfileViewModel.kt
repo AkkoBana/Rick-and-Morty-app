@@ -2,11 +2,13 @@ package com.akkobana.rickandmortyapp.presentation.ui.profile
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.akkobana.rickandmortyapp.domain.dbusecases.deleteall.DeleteAllLikedDislikedCharactersUseCase
 import com.akkobana.rickandmortyapp.domain.saveauthdata.SaveAuthStateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,11 +25,8 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun clearTables() {
-        deleteALlLikedDislikedCharactersUseCase.deleteAllLikedDislikedCharacters()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-            }, {
-            }).isDisposed
+        /*viewModelScope.launch {
+            deleteALlLikedDislikedCharactersUseCase.deleteAllLikedDislikedCharacters()
+        }*/
     }
 }

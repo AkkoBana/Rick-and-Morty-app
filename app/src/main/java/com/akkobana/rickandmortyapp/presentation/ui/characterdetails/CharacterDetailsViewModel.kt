@@ -2,6 +2,7 @@ package com.akkobana.rickandmortyapp.presentation.ui.characterdetails
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.akkobana.rickandmortyapp.data.model.Character
 import com.akkobana.rickandmortyapp.data.model.CharacterResults
 import com.akkobana.rickandmortyapp.domain.dbusecases.dislikedcharacters.deletedislikedcharacter.DeleteDislikedCharacterUseCase
@@ -12,8 +13,10 @@ import com.akkobana.rickandmortyapp.domain.dbusecases.likedcharacters.getlikedch
 import com.akkobana.rickandmortyapp.domain.dbusecases.likedcharacters.savelikedcharacter.SaveLikedCharacterUseCase
 import com.akkobana.rickandmortyapp.domain.getapidata.GetApiResponseUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -35,77 +38,59 @@ internal class CharacterDetailsViewModel @Inject constructor(
 
     fun fetchCharacterData(id: Int) {
         isLoadingLive.value = true
-        getApiResponseUseCase.getCharacterInfo(id.toString())
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                characterDetailsLive.value = it
-            }, {
-
-            }).isDisposed
+        viewModelScope.launch {
+            getApiResponseUseCase.getCharacterInfo(id.toString())
+                .flowOn(Dispatchers.IO)
+                .collect { characterDetailsLive.value = it }
+        }
     }
 
     fun insertLikedCharacterInTable(id: Int) {
         val character = Character(id)
-        saveFavouriteCharacterUseCase.insertNewLikedCharacter(character.toFavouriteCharacterEntity())
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {}, {}
-            ).isDisposed
+        viewModelScope.launch {
+            saveFavouriteCharacterUseCase.insertNewLikedCharacter(character.toFavouriteCharacterEntity())
+        }
     }
 
     fun fetchLikedCharacterFromTable(id: Int) {
-        getFavouriteCharacterUseCase.getLikedById(id)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                isLikedLive.value = true
-            }, {
-                isLikedLive.value = false
-            }).isDisposed
+        viewModelScope.launch {
+            getFavouriteCharacterUseCase.getLikedById(id)
+                .flowOn(Dispatchers.IO)
+                .catch { isLikedLive.value = false }
+                .collect { isLikedLive.value = true }
+        }
     }
 
     fun deleteLikedCharacterFromTable(id: Int) {
         val character = Character(id)
-        deleteFavouriteCharacterUseCase.deleteFavouriteById(character.toFavouriteCharacterEntity())
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { },
-                { }
-            ).isDisposed
+        viewModelScope.launch {
+            deleteFavouriteCharacterUseCase.deleteFavouriteById(character.toFavouriteCharacterEntity())
+        }
     }
 
     fun insertDislikedCharacterInTable(id: Int) {
         val character = Character(id)
-        saveDislikedCharacterUseCase.insertNewDislikedCharacter(character.toLeastLikedCharacterEntity())
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { },
-                { }
-            ).isDisposed
+        viewModelScope.launch {
+            saveDislikedCharacterUseCase.insertNewDislikedCharacter(character.toLeastLikedCharacterEntity())
+
+        }
     }
 
     fun fetchDislikedCharacterFromTable(id: Int) {
-        getDislikedCharacterUseCase.getDislikedCharacterById(id)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                isDislikedLive.value = true
-            }, {
-                isDislikedLive.value = false
-            }).isDisposed
+        viewModelScope.launch {
+            getDislikedCharacterUseCase.getDislikedCharacterById(id)
+                .flowOn(Dispatchers.IO)
+                .catch { isDislikedLive.value = false }
+                .collect { isDislikedLive.value = true }
+
+        }
     }
 
     fun deleteDislikedCharacterFromTable(id: Int) {
         val character = Character(id)
-        deleteLeastLikedCharacterUseCase.deleteDislikedById(character.toLeastLikedCharacterEntity())
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({}, {}
-            ).isDisposed
+        viewModelScope.launch {
+            deleteLeastLikedCharacterUseCase.deleteDislikedById(character.toLeastLikedCharacterEntity())
+        }
     }
 
     fun changeIsLikedValue() {

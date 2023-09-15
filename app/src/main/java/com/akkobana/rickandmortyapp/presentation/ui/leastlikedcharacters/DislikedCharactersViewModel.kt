@@ -2,12 +2,14 @@ package com.akkobana.rickandmortyapp.presentation.ui.leastlikedcharacters
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.akkobana.rickandmortyapp.data.model.CharacterCard
 import com.akkobana.rickandmortyapp.domain.dbusecases.dislikedcharacters.getdislikedcharacters.GetDislikedCharactersUseCase
 import com.akkobana.rickandmortyapp.domain.getapidata.GetApiResponseUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,31 +21,27 @@ class DislikedCharactersViewModel  @Inject constructor(
     var dislikedCharactersId = mutableListOf<String>()
 
     private fun fetchNameAndImage() {
-        getApiResponseUseCase.getCharacterNameAndImageById(
-            id = dislikedCharactersId,
-            name = "",
-            status = "",
-            gender = ""
-        )
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                dislikedCharactersListLive.value = it
-            }, {
-            }).isDisposed
+        viewModelScope.launch {
+            getApiResponseUseCase.getCharacterNameAndImageById(
+                id = dislikedCharactersId,
+                name = "",
+                status = "",
+                gender = ""
+            ).flowOn(Dispatchers.IO)
+                .collect { dislikedCharactersListLive.value = it }
+        }
     }
 
     fun fetchLeastLikedCharacters() {
-        getLeastLikedCharactersUseCase.getDislikedCharacters()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSuccess {  }
-            .subscribe({
-                for (i in it) {
-                    dislikedCharactersId += i.id.toString()
+        viewModelScope.launch {
+            getLeastLikedCharactersUseCase.getDislikedCharacters()
+                .flowOn(Dispatchers.IO)
+                .collect {
+                    for (i in it) {
+                        dislikedCharactersId += i.id.toString()
+                    }
+                    fetchNameAndImage()
                 }
-                fetchNameAndImage()
-            }, {
-            }).isDisposed
+        }
     }
 }

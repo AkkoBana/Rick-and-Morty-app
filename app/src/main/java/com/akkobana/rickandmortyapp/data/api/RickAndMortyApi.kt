@@ -3,7 +3,7 @@ package com.akkobana.rickandmortyapp.data.api
 import com.akkobana.rickandmortyapp.data.model.CharacterCard
 import com.akkobana.rickandmortyapp.data.model.CharacterNameImage
 import com.akkobana.rickandmortyapp.data.model.CharacterResults
-import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -14,7 +14,7 @@ interface RickAndMortyApi {
     fun getCharacterInfo(
         @Path("id")
         id: String
-    ): Single<CharacterResults>
+    ): Flow<CharacterResults>
 
     @GET("character/")
     fun getAllCharactersNameAndImage(
@@ -24,7 +24,7 @@ interface RickAndMortyApi {
         status: String,
         @Query("gender")
         gender: String
-    ): Single<CharacterNameImage>
+    ): Flow<CharacterNameImage>
 
     @GET("character/{id}")
     fun getCharacterNameAndImageById(
@@ -36,6 +36,6 @@ interface RickAndMortyApi {
         status: String,
         @Query("gender")
         gender: String
-    ): Single<List<CharacterCard>>
+    ): Flow<List<CharacterCard>>
 
 }

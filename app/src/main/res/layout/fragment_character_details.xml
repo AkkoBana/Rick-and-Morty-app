@@ -11,7 +11,7 @@
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/tbProfile"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/green"
         android:elevation="10dp"
@@ -22,10 +22,10 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivCharacterAvatar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="250dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tbProfile" />
 
 
@@ -94,39 +94,41 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:textColor="@color/green"
-        app:layout_constraintBottom_toBottomOf="@+id/tvStatus"
-        app:layout_constraintStart_toEndOf="@+id/tvStatus"
-        app:layout_constraintTop_toTopOf="@+id/tvStatus" />
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvStatus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/tvStatus" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvSpeciesContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
+        app:layout_constrainedWidth="true"
         android:textColor="@color/green"
-        app:layout_constraintBottom_toBottomOf="@+id/tvSpecies"
-        app:layout_constraintStart_toEndOf="@+id/tvSpecies"
-        app:layout_constraintTop_toTopOf="@+id/tvSpecies" />
+        app:layout_constraintBaseline_toBaselineOf="@id/tvSpecies"
+        app:layout_constraintStart_toEndOf="@id/tvSpecies" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvGenderContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
+        app:layout_constrainedWidth="true"
         android:textColor="@color/green"
-        app:layout_constraintBottom_toBottomOf="@+id/tvGender"
-        app:layout_constraintStart_toEndOf="@+id/tvGender"
-        app:layout_constraintTop_toTopOf="@+id/tvGender" />
+        app:layout_constraintBaseline_toBaselineOf="@id/tvGender"
+        app:layout_constraintStart_toEndOf="@id/tvGender" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvCreatedContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
+        app:layout_constrainedWidth="true"
         android:textColor="@color/green"
-        app:layout_constraintBottom_toBottomOf="@+id/tvCreated"
-        app:layout_constraintStart_toEndOf="@+id/tvCreated"
-        app:layout_constraintTop_toTopOf="@+id/tvCreated" />
+        app:layout_constraintBaseline_toBaselineOf="@id/tvCreated"
+        app:layout_constraintStart_toEndOf="@id/tvCreated" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/ibLeastLiked"
@@ -139,6 +141,7 @@
         android:tint="@color/pink"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/ibFavourite"
         android:layout_width="wrap_content"

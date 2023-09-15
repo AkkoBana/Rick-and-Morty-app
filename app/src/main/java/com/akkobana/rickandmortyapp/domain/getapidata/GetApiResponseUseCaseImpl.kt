@@ -4,13 +4,13 @@ import com.akkobana.rickandmortyapp.data.api.ApiRepository
 import com.akkobana.rickandmortyapp.data.model.CharacterCard
 import com.akkobana.rickandmortyapp.data.model.CharacterNameImage
 import com.akkobana.rickandmortyapp.data.model.CharacterResults
-import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetApiResponseUseCaseImpl @Inject constructor(
     private val apiRepository: ApiRepository
 ): GetApiResponseUseCase {
-    override fun getCharacterInfo(id: String): Single<CharacterResults> =
+    override fun getCharacterInfo(id: String): Flow<CharacterResults> =
         apiRepository.getCharacterInfo(id)
 
 
@@ -18,7 +18,7 @@ class GetApiResponseUseCaseImpl @Inject constructor(
         name: String,
         status: String,
         gender: String
-    ): Single<CharacterNameImage> =
+    ): Flow<CharacterNameImage> =
         apiRepository.getAllCharactersNameAndImage(name, status, gender)
 
     override fun getCharacterNameAndImageById(
@@ -26,7 +26,7 @@ class GetApiResponseUseCaseImpl @Inject constructor(
         name: String,
         status: String,
         gender: String
-    ): Single<List<CharacterCard>> =
+    ): Flow<List<CharacterCard>> =
         apiRepository.getCharacterNameAndImageById(id,name,status,gender)
 
 }

@@ -1,7 +1,7 @@
 package com.akkobana.rickandmortyapp.domain.dbusecases.deleteall
 
-import io.reactivex.Completable
+import kotlinx.coroutines.flow.Flow
 
 interface DeleteAllLikedDislikedCharactersUseCase {
-    fun deleteAllLikedDislikedCharacters() : Completable
+     fun deleteAllLikedDislikedCharacters()
 }

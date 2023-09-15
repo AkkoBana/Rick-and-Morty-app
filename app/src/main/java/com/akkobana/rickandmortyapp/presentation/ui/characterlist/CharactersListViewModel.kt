@@ -3,13 +3,17 @@ package com.akkobana.rickandmortyapp.presentation.ui.characterlist
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.akkobana.rickandmortyapp.data.model.CharacterCard
 import com.akkobana.rickandmortyapp.domain.getapidata.GetApiResponseUseCase
 import com.akkobana.rickandmortyapp.domain.getauthdata.GetAuthStateUseCase
 import com.akkobana.rickandmortyapp.utils.FilterListEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -19,9 +23,9 @@ class CharactersListViewModel @Inject constructor(
     private val getApiResponseUseCase: GetApiResponseUseCase
 ) : ViewModel() {
     val filterEntity = FilterListEntity.filterEntity
-    val authStateLive = MutableLiveData<Boolean>()
-    val characterListLive = MutableLiveData<MutableList<CharacterCard>>()
-    val isLoadingLive = MutableLiveData<Boolean>()
+    val authStateState = MutableStateFlow(false)
+    val characterListState = MutableLiveData<MutableList<CharacterCard>>()
+    val isLoadingState = MutableStateFlow(true)
     private var nameCharacter: String = ""
 
     fun fetchNameAndImage(
@@ -30,25 +34,30 @@ class CharactersListViewModel @Inject constructor(
         gender: String? = ""
     ) {
         nameCharacter = name
-        isLoadingLive.value = true
 
-        getApiResponseUseCase.getAllCharactersNameAndImage(
-            name = name,
-            status = status ?: "",
-            gender = gender ?: ""
-        )
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSuccess { isLoadingLive.value = false }
-            .subscribe({
-                characterListLive.value = it.results!!
-            }, {
-                isLoadingLive.value = false
-            }).isDisposed
+        viewModelScope.launch {
+            getApiResponseUseCase.getAllCharactersNameAndImage(
+                name = name,
+                status = status ?: "",
+                gender = gender ?: ""
+            )
+                .flowOn(Dispatchers.IO)
+                .catch {
+                    isLoadingState.emit(false)
+                    Log.e("Error", "API Error", it)
+                }
+                .collect {
+                    characterListState.value = it.results!!
+                }
+        }
+
     }
 
     fun checkAuthState() {
-        authStateLive.value = getAuthStateUseCase.getAuthState()
+        viewModelScope.launch {
+            authStateState.emit(getAuthStateUseCase.getAuthState())
+        }
+
     }
 
     fun characterAdapterCallBack(id: Int, callBack: (Int) -> Unit) {

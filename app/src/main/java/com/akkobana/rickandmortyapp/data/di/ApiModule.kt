@@ -13,7 +13,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
@@ -30,7 +29,6 @@ class ApiModule {
             .baseUrl(BASE_URL_RICK_AND_MORTY)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
     @Provides

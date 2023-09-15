@@ -5,25 +5,23 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.akkobana.rickandmortyapp.data.model.LikedCharacterDbEntity
-import io.reactivex.Completable
-import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface LikedCharactersDao {
     @Insert
-    fun insertNewLikedCharacter(likedCharacter: LikedCharacterDbEntity): Completable
+    suspend fun insertNewLikedCharacter(likedCharacter: LikedCharacterDbEntity)
 
     @Query("SELECT id FROM $TABLE_LIKED_NAME")
-    fun getAllLikedCharacters(): Single<List<LikedCharacterInfoTuple>>
-
+    fun getAllLikedCharacters(): Flow<List<LikedCharacterInfoTuple>>
     @Delete
-    fun deleteLikedCharacterById(likedCharacter: LikedCharacterDbEntity): Completable
+    suspend fun deleteLikedCharacterById(likedCharacter: LikedCharacterDbEntity)
 
     @Query("SELECT id FROM $TABLE_LIKED_NAME WHERE id = :likedCharacterId")
-    fun getLikedCharacterById(likedCharacterId: Int): Single<LikedCharacterInfoTuple>
+    fun getLikedCharacterById(likedCharacterId: Int): Flow<LikedCharacterInfoTuple>
 
     @Query("DELETE FROM $TABLE_LIKED_NAME")
-    fun deleteAllLikedCharactersFromTable(): Completable
+    fun deleteAllLikedCharactersFromTable()
 
     companion object {
         const val TABLE_LIKED_NAME = "liked"
